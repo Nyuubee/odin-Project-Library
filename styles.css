@@ -1,0 +1,99 @@
+.library-grid {
+    padding: 24px;
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-auto-rows: auto;
+    gap: 10px;
+}
+
+.card {
+    border: 2px red solid;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Click feedback effect */
+button:active {
+    transform: scale(0.97);
+}
+
+/* 2. Delete / Remove Button (Danger State) */
+.btn-delete, .close-modal-btn {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.btn-delete:hover, .close-modal-btn:hover {
+    background-color: #fecaca;
+}
+
+/* Optional: If you want an Edit/Modify button alongside them */
+.btn-edit {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.btn-edit:hover {
+    background-color: #bae6fd;
+}
+
+.add-book-btn {
+    background-color: #94fa9b;
+    color: #08570d;
+}
+
+.add-book-btn:hover {
+    background-color: #7ed784;
+    color: #08570d;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 320px;
+}

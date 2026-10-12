@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <button id="add-book-btn" class="add-book-btn">Add book</button>
+
+    <div id="modal" class="modal">
+        <form action="" class="form">
+            <label for="book-title">Title:</label>
+            <input type="text" name="book-title" id="book-title" required>
+
+            <label for="book-author">Author:</label>
+            <input type="text" name="book-author" id="book-author" required>
+
+            <label for="book-pages">Pages:</label>
+            <input type="number" name="book-pages" id="book-pages" required>
+
+            <div class="radio-group">
+                <input type="radio" name="book-status" id="status-read" value="read">
+                <label for="status-read">Read</label>
+                <input type="radio" name="book-status" id="status-unread" value="unread" checked>
+                <label for="status-unread">Unread</label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="add-book-btn">Submit</button>
+                <button type="button" class="close-modal-btn">Cancel</button>
+                <button type="button" class="clear-modal-btn">Clear</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="library-grid">
+    </div>
+
+    <script src="javascript.js"></script>
+</body>
+
+</html>
