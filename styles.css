@@ -1,31 +1,133 @@
-.library-grid {
-    padding: 24px;
-    border: 2px solid black;
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    grid-auto-rows: auto;
-    gap: 10px;
+/* Global Reset & Styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.card {
-    border: 2px red solid;
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    min-height: 100vh;
+    padding: 40px 20px;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    padding: 10px;
+    align-items: center;
 }
 
+/* Page Header & Main Add Button */
+header {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.025em;
+}
+
+.add-book-btn {
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.add-book-btn:hover {
+    background-color: #1d4ed8;
+    box-shadow: 0 6px 8px -1px rgba(37, 99, 235, 0.3);
+}
+
+.add-book-btn:active {
+    transform: scale(0.97);
+}
+
+/* Responsive Library Grid */
+.library-grid {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Book Card Design */
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    border-top: 5px solid #2563eb;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Typography Hierarchy */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.4;
+}
+
+.card-author {
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.card-pages, .card-id {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.card-id {
+    font-family: monospace;
+    font-size: 0.75rem;
+    background: #f8fafc;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Card Actions Container */
 .card-actions {
     display: flex;
     gap: 10px;
-    margin: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
 }
 
-button {
+/* General Button Styles inside Cards */
+.card button {
     flex: 1;
-    padding: 4px 12px;
-    border-radius: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 600;
     border: none;
@@ -33,22 +135,21 @@ button {
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Click feedback effect */
-button:active {
+.card button:active {
     transform: scale(0.97);
 }
 
-/* 2. Delete / Remove Button (Danger State) */
-.btn-delete, .close-modal-btn {
-    background-color: #fee2e2;
-    color: #991b1b;
+/* Toggle Status Button Styling */
+.btn-toggle-read {
+    background-color: #dcfce7;
+    color: #166534;
+}
+.btn-toggle-read.unread {
+    background-color: #f1f5f9;
+    color: #475569;
 }
 
-.btn-delete:hover, .close-modal-btn:hover {
-    background-color: #fecaca;
-}
-
-/* Optional: If you want an Edit/Modify button alongside them */
+/* Edit & Delete Buttons */
 .btn-edit {
     background-color: #e0f2fe;
     color: #0369a1;
@@ -58,26 +159,25 @@ button:active {
     background-color: #bae6fd;
 }
 
-.add-book-btn {
-    background-color: #94fa9b;
-    color: #08570d;
+.btn-delete {
+    background-color: #fee2e2;
+    color: #991b1b;
 }
 
-.add-book-btn:hover {
-    background-color: #7ed784;
-    color: #08570d;
+.btn-delete:hover {
+    background-color: #fecaca;
 }
 
+/* Modal Overlay & Form */
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black background */
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -89,11 +189,103 @@ button:active {
 
 .form {
     background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    width: 320px;
+    gap: 16px;
+    width: 100%;
+    max-width: 380px;
+}
+
+.form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #334155;
+    margin-bottom: -8px;
+}
+
+.form input[type="text"],
+.form input[type="number"] {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.radio-group {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin: 4px 0;
+    font-weight: 500;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.form-actions button {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.close-modal-btn {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+.close-modal-btn:hover {
+    background-color: #e2e8f0;
+}
+
+.clear-modal-btn {
+    background-color: #f1f5f9;
+    color: #475569;
+}
+.clear-modal-btn:hover {
+    background-color: #e2e8f0;
+}
+
+/* Footer Styling */
+footer {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: auto; /* Pushes the footer to the bottom if the page has few books */
+    padding: 32px 0 16px 0;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+footer p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
 }

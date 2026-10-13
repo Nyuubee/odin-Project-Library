@@ -15,9 +15,6 @@ Book.prototype.info = function () {
     return `ID: ${this.id}, Book: ${this.title}, Author: ${this.author}, pages: ${this.pages}, Status: ${this.status}`
 }
 
-Book.prototype.toggleReadStatus = function () {
-    this.status = this.status === "read" ? "unread" : "read";
-};
 
 function AddBookToLibrary(title, author, pages, status) {
     const newBook = new Book(title, author, pages, status);
@@ -41,6 +38,8 @@ const modalForm = document.getElementById("modal");
 const addBookButton = document.getElementById("add-book-btn");
 const closeModalButton = document.querySelector(".close-modal-btn");
 const clearModalButton = document.querySelector(".clear-modal-btn");
+
+const formActions = document.querySelector(".form-actions");
 
 function handleForm(event) {
     event.preventDefault();
@@ -84,34 +83,27 @@ function displayBooks() {
     libraryGrid.innerHTML = "";
     myLibrary.forEach((book) => {
         const bookCard = document.createElement("div");
-        const bookTitle = document.createElement("p");
+        const bookTitle = document.createElement("h3");
         const bookAuthor = document.createElement("p");
         const bookPages = document.createElement("p");
-        const bookStatus = document.createElement("p");
         const bookID = document.createElement("p");
 
         const buttonContainer = document.createElement("div");
+        const toggleButton = document.createElement("button");
         const editButton = document.createElement("button");
         const deleteButton = document.createElement("button");
 
-        const toggleButton = document.createElement("button");
-        toggleButton.textContent = `Status: ${book.status}`;
-        toggleButton.classList.add("btn-toggle");
-
-        // Listen for clicks to toggle status and re-render
-        toggleButton.addEventListener("click", () => {
-            book.toggleReadStatus();
-            displayBooks();
-        });
-
         bookCard.classList.add("card");
-        bookCard.setAttribute("style", "background-color: lightblue;")
+        bookTitle.classList.add("card-title");
+        bookAuthor.classList.add("card-author");
+        bookPages.classList.add("card-pages");
+        bookID.classList.add("card-id");
 
-        bookTitle.textContent = `${book.title}`;
-        bookAuthor.textContent = `${book.author}`;
-        bookPages.textContent = `${book.pages}`;
-        bookStatus.textContent = `${book.status}`;
-        bookID.textContent = `${book.id}`;
+        bookTitle.textContent = book.title;
+        bookAuthor.textContent = `by ${book.author}`;
+        bookPages.textContent = `${book.pages} pages`;
+        bookID.textContent = `ID: ${book.id}`;
+
         editButton.textContent = "Edit";
         deleteButton.textContent = "Delete";
 
@@ -119,16 +111,33 @@ function displayBooks() {
         editButton.classList.add("btn-edit");
         deleteButton.classList.add("btn-delete");
 
-        bookCard.dataset.id = book.id;
+        // Toggle button setup with dynamic styling
+        toggleButton.textContent = book.status === "read" ? "✓ Read" : "Mark as Read";
+        toggleButton.classList.add("btn-toggle-read");
+        if (book.status !== "read") {
+            toggleButton.classList.add("unread");
+        }
 
+        toggleButton.addEventListener("click", () => {
+            if (book.status === "read") {
+                book.status = "unread";
+                toggleButton.setAttribute("style", "background-color: grey");
+            }
+            else {
+                book.status = "read";
+                toggleButton.setAttribute("style", "background-color: green");
+            }
+            displayBooks();
+        });
 
         libraryGrid.appendChild(bookCard);
         bookCard.appendChild(bookTitle);
         bookCard.appendChild(bookAuthor);
         bookCard.appendChild(bookPages);
-        bookCard.appendChild(bookStatus);
+        bookCard.appendChild(bookID);
         bookCard.appendChild(buttonContainer);
-        bookCard.appendChild(toggleButton);
+
+        buttonContainer.appendChild(toggleButton);
         buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
 
@@ -139,21 +148,19 @@ function displayBooks() {
             formBookPages.value = Number(book.pages);
             if (book.status === "read") {
                 document.getElementById("status-read").checked = true;
-            }
-            else {
+            } else {
                 document.getElementById("status-unread").checked = true;
             }
-
             modalForm.classList.add("active");
-        })
+        });
 
         deleteButton.addEventListener("click", () => {
             deleteBook(book);
         });
-
-
-    })
+    });
 }
+
+
 
 displayBooks();
 
